@@ -50,7 +50,10 @@
 
                 ResultSet resultado = ps.executeQuery(sql);
 
+                while (resultado.next()){
 
+                    out.println(resultado.);
+                }
 
             }catch (Exception e){
 
