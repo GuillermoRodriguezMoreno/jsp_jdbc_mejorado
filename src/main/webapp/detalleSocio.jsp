@@ -1,8 +1,5 @@
 <%@ page import="java.util.Objects" %>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.PreparedStatement" %>
-<%@ page import="java.sql.DriverManager" %>
-<%@ page import="java.sql.ResultSet" %><%--
+<%@ page import="java.sql.*" %><%--
   Created by IntelliJ IDEA.
   User: guillermorodriguez
   Date: 20/11/23
@@ -39,21 +36,40 @@
         if(valido){
 
             Connection conn = null;
-            PreparedStatement ps = null;
+            Statement s = null;
 
             try {
 
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/baloncesto", "root", "user");
 
-                String sql = "SELECT * FROM socio WHERE idSocio=" + idSocio;
+                String sql = "SELECT * FROM socio WHERE socioID=" + idSocio;
 
-                ResultSet resultado = ps.executeQuery(sql);
+                s = conn.createStatement();
+
+                ResultSet resultado = s.executeQuery(sql);
+
+                String id = "";
+                String nombre = "";
+                String estatura = "";
+                String edad = "";
+                String localidad = "";
 
                 while (resultado.next()){
 
-                    out.println(resultado.);
+                    id = resultado.getString("SocioID");
+                    nombre = resultado.getString("nombre");
+                    estatura = resultado.getString("estatura");
+                    edad = resultado.getString("edad");
+                    localidad = resultado.getString("localidad");
+
                 }
+
+                out.println("ID: " + id + "<br>" +
+                            "Nombre: " + nombre + "<br>" +
+                            "Estatura: " + estatura + "<br>" +
+                            "Edad: " + edad + "<br>" +
+                            "Localidad: " + localidad + "<br>");
 
             }catch (Exception e){
 
@@ -69,10 +85,9 @@
 
                 try {
 
-                    ps.close();
+                    s.close();
 
                 }catch (Exception e){}
-
 
             }
 
