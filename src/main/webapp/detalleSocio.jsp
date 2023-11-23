@@ -36,18 +36,19 @@
         if(valido){
 
             Connection conn = null;
-            Statement s = null;
+            PreparedStatement ps = null;
 
             try {
 
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/baloncesto", "root", "user");
 
-                String sql = "SELECT * FROM socio WHERE socioID=" + idSocio;
+                String sql = "SELECT * FROM socio WHERE socioID=?";
 
-                s = conn.createStatement();
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, idSocio);
 
-                ResultSet resultado = s.executeQuery(sql);
+                ResultSet resultado = ps.executeQuery(); // No hay que pasar como parametro el sql!!!!
 
                 String id = "";
                 String nombre = "";
@@ -85,7 +86,7 @@
 
                 try {
 
-                    s.close();
+                    ps.close();
 
                 }catch (Exception e){}
 
