@@ -1,6 +1,8 @@
 <%@page import="java.sql.*" %>
 <%@page import="java.util.Objects" %>
 <%@ page import="java.io.IOException" %>
+<%@ page import="java.awt.event.FocusEvent" %>
+<%@ page import="java.util.ArrayList" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -16,8 +18,17 @@
     int estatura = -1;
     int edad = -1;
     String localidad = null;
+    ArrayList<String> listaErrores = new ArrayList<>();
     try {
-        numero = Integer.parseInt(request.getParameter("numero"));
+
+        try {
+            numero = Integer.parseInt(request.getParameter("numero"));
+        }catch (Exception e){
+
+            listaErrores.add("Error en el campo Numero" + e.getMessage());
+            valida = false;
+        }
+
 
         //UTILIZO LOS CONTRACTS DE LA CLASE Objects PARA LA VALIDACIÓN
         //             v---- LANZA NullPointerException SI EL PARÁMETRO ES NULL
@@ -45,6 +56,7 @@
         localidad = request.getParameter("localidad");
 
     } catch (Exception ex) {
+
         ex.printStackTrace();
         valida = false;
     }

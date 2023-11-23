@@ -12,7 +12,7 @@
     <title>Title</title>
 </head>
 <body>
-
+    <h1>Detalles socio</h1>
     <%
         int idSocio = 0;
         boolean valido = true;
@@ -55,22 +55,36 @@
                 String estatura = "";
                 String edad = "";
                 String localidad = "";
+                boolean encontrado = true;
 
-                while (resultado.next()){
+                if (resultado.next()){
 
-                    id = resultado.getString("SocioID");
+                    id = resultado.getString("SocioID"); // Deberia ser getInt si necesito usar el valor
                     nombre = resultado.getString("nombre");
                     estatura = resultado.getString("estatura");
                     edad = resultado.getString("edad");
                     localidad = resultado.getString("localidad");
 
+                }else{
+
+                    encontrado = false;
                 }
 
-                out.println("ID: " + id + "<br>" +
-                            "Nombre: " + nombre + "<br>" +
-                            "Estatura: " + estatura + "<br>" +
-                            "Edad: " + edad + "<br>" +
-                            "Localidad: " + localidad + "<br>");
+                if (encontrado){
+                    %>
+                        <p>SocioID: <%= id %></p>
+                        <p>Nombre: <%= nombre %></p>
+                        <p>Estatura: <%= estatura %></p>
+                        <p>Edad: <%= edad %></p>
+                        <p>Localidad: <%= localidad %></p>
+                    <%
+
+                } else {
+
+                    %>
+                        <p>Socio no encontrado</p>
+                    <%
+                }
 
             }catch (Exception e){
 
