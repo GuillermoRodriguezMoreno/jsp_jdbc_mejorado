@@ -5,6 +5,16 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   </head>
   <body>
+    <%
+
+      String error = (String) session.getAttribute("error");
+      if(error != null){
+
+        %>
+          <span><%=error%></span>
+        <%
+      }
+    %>
     <h2>Introduzca los datos del nuevo socio:</h2>
     <form method="get" action="grabaSocio.jsp">
       Nº socio <input type="text" name="numero"/></br>

@@ -18,20 +18,17 @@
     int estatura = -1;
     int edad = -1;
     String localidad = null;
-    ArrayList<String> listaErrores = new ArrayList<>();
+    String error = "";
+    String flag = "";
+
     try {
 
-        try {
-            numero = Integer.parseInt(request.getParameter("numero"));
-        }catch (Exception e){
-
-            listaErrores.add("Error en el campo Numero" + e.getMessage());
-            valida = false;
-        }
-
+        flag = "Numero";
+        numero = Integer.parseInt(request.getParameter("numero"));
 
         //UTILIZO LOS CONTRACTS DE LA CLASE Objects PARA LA VALIDACIÓN
         //             v---- LANZA NullPointerException SI EL PARÁMETRO ES NULL
+        flag = "Nombre";
         Objects.requireNonNull(request.getParameter("nombre"));
         //CONTRACT nonBlank..
         //UTILIZO isBlank SOBRE EL PARÁMETRO DE TIPO String PARA CHEQUEAR QUE NO ES UN PARÁMETRO VACÍO "" NI CADENA TODO BLANCOS "    "
@@ -40,13 +37,15 @@
         if (request.getParameter("nombre").isBlank()) throw new RuntimeException("Parámetro vacío o todo espacios blancos.");
         nombre = request.getParameter("nombre");
 
-
+        flag = "Estatura";
         estatura = Integer.parseInt(request.getParameter("estatura"));
 
+        flag = "Edad";
         edad = Integer.parseInt(request.getParameter("edad"));
 
         //UTILIZO LOS CONTRACTS DE LA CLASE Objects PARA LA VALIDACIÓN
         //             v---- LANZA NullPointerException SI EL PARÁMETRO ES NULL
+        flag = "Localidad";
         Objects.requireNonNull(request.getParameter("localidad"));
         //CONTRACT nonBlank
         //UTILIZO isBlank SOBRE EL PARÁMETRO DE TIPO String PARA CHEQUEAR QUE NO ES UN PARÁMETRO VACÍO "" NI CADENA TODO BLANCOS "    "
@@ -55,10 +54,26 @@
         if (request.getParameter("localidad").isBlank()) throw new RuntimeException("Parámetro vacío o todo espacios blancos.");
         localidad = request.getParameter("localidad");
 
-    } catch (Exception ex) {
+    } catch (NullPointerException ex) {
 
-        ex.printStackTrace();
+        error = "El campo " + flag + " no tiene valor";
         valida = false;
+
+    }catch (NumberFormatException ex){
+
+        error = "El campo " + flag + " no tiene el formato correcto";
+        valida = false;
+
+    }catch (RuntimeException ex){
+
+        error = "El campo " + flag + ": " + ex.getMessage();
+        valida = false;
+
+    }catch (Exception ex){
+
+        error =  "Error en el campo " + flag;
+        valida = false;
+
     }
     //FIN CÓDIGO DE VALIDACIÓN
 
@@ -122,6 +137,8 @@
         out.println("Socio dado de alta.");
 } else {
         out.println("Error de validación!");
+        session.setAttribute("error", error);
+        response.sendRedirect("formularioSocio.jsp");
     }
 %>
 
