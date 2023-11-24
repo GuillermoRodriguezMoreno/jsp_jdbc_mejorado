@@ -18,14 +18,8 @@
         boolean valido = true;
 
         try {
-
-            // Validacion
-
-            Objects.requireNonNull(request.getParameter("id"));
-
-            if (request.getParameter("id").isBlank()) throw new RuntimeException("Parámetro vacío o todo espacios blancos.");
-
-            idSocio = Integer.parseInt(request.getParameter("id"));
+            // Validacion realizada en grabaSocio.jsp
+            idSocio = Integer.parseInt(request.getParameter("socioID"));
 
         }catch (Exception e){
 
@@ -50,19 +44,19 @@
 
                 ResultSet resultado = ps.executeQuery(); // No hay que pasar como parametro el sql!!!!
 
-                String id = "";
+                int id = -1;
                 String nombre = "";
-                String estatura = "";
-                String edad = "";
+                int estatura = -1;
+                int edad = -1;
                 String localidad = "";
                 boolean encontrado = true;
 
                 if (resultado.next()){
 
-                    id = resultado.getString("SocioID"); // Deberia ser getInt si necesito usar el valor
+                    id = resultado.getInt("SocioID"); // Deberia ser getInt si necesito usar el valor
                     nombre = resultado.getString("nombre");
-                    estatura = resultado.getString("estatura");
-                    edad = resultado.getString("edad");
+                    estatura = resultado.getInt("estatura");
+                    edad = resultado.getInt("edad");
                     localidad = resultado.getString("localidad");
 
                 }else{
