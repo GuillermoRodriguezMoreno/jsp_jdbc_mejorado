@@ -11,14 +11,14 @@
       if(error != null){
 
         %>
-          <span><%=error%></span>
+          <span style="color: red; font-weight: bold"><%=error%></span>
         <%
       }
 
       session.removeAttribute("error");
     %>
     <h2>Introduzca los datos del nuevo socio:</h2>
-    <form method="get" action="grabaSocio.jsp">
+    <form method="post" action="grabaSocio.jsp">
       Nº socio <input type="text" name="numero"/></br>
       Nombre <input type="text" name="nombre"/></br>
       Estatura <input type="text" name="estatura"/></br>

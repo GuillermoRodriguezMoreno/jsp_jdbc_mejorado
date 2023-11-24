@@ -20,6 +20,11 @@
     <table>
       <tr><th>Código</th><th>Nombre</th><th>Estatura</th><th>Edad</th><th>Localidad</th></tr>
     <%
+
+        //Integer socioIDADestacar = (Integer) session.getAttribute("socioIDADestacar");
+        // Cambiar estilos usando un if (socioIDADestacar == listado.get("socioID" && socioIDADestacar != null))
+        // Añadir una clase css para facilitar el cambio de estilo añadiendola a la etiqueta
+
       while (listado.next()) {
           out.println("<tr><td>");
           out.println(listado.getString("socioID") + "</td>");

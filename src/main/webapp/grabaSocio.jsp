@@ -134,7 +134,11 @@
             } catch (Exception e) { /* Ignored */ }
         }
 
-        out.println("Socio dado de alta.");
+        response.sendRedirect("detalleSocio.jsp?socioID="+numero);
+        // Opcion resaltar socio en el listado completo
+        //session.setAttribute("socioIDADescatar", numero);
+        //response.sendRedirect("pideNumeroSocio.jsp");
+
 } else {
         out.println("Error de validación!");
         session.setAttribute("error", error);
