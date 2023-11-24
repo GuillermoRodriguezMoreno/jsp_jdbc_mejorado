@@ -14,6 +14,8 @@
           <span><%=error%></span>
         <%
       }
+
+      session.removeAttribute("error");
     %>
     <h2>Introduzca los datos del nuevo socio:</h2>
     <form method="get" action="grabaSocio.jsp">
