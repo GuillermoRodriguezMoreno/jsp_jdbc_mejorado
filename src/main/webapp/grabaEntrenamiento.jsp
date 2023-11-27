@@ -125,7 +125,7 @@
             ps.setString(idx++, ubicacion);
             ps.setDate(idx, new java.sql.Date(fecha.getTime()));
 
-            ps.executeQuery();
+            ps.executeUpdate();
 
         } catch (Exception ex) {
             ex.printStackTrace();
