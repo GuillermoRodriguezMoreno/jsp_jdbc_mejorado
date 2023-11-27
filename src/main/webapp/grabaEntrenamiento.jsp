@@ -123,7 +123,7 @@
             int idx = 1;
             ps.setString(idx++, tipo);
             ps.setString(idx++, ubicacion);
-            ps.setDate(idx, (java.sql.Date) fecha);
+            ps.setDate(idx, new java.sql.Date(fecha.getTime()));
 
             ps.executeQuery();
 
