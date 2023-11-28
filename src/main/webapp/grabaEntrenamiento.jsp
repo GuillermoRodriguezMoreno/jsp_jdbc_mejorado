@@ -114,7 +114,7 @@
 //       s.execute(insercion);
 //<<<<<<
 
-            String sql = "INSERT INTO entrenamiento VALUES ( " +
+            String sql = "INSERT INTO entrenamiento (tipo, ubicacion, fecha) VALUES ( " +
                     "?, " + //tipo
                     "?, " + //ubicacion
                     "?)"; //fecha
