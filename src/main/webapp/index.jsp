@@ -17,5 +17,7 @@
 <a href="pideNumeroSocio.jsp">Listado de Socios</a>
 <br>
 <a href="formularioEntrenamiento.jsp">Formulario de Entrenamiento</a>
+<br>
+<a href="pideNumeroEntrenamiento.jsp">Listado de Entrenamiento</a>
 </body>
 </html>
