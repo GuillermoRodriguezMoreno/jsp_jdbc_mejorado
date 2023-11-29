@@ -1,7 +1,5 @@
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.Statement" %>
-<%@ page import="java.sql.ResultSet" %>
-<%@ page import="java.sql.DriverManager" %><%--
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.sql.*" %><%--
   Created by IntelliJ IDEA.
   User: guillermorodriguez
   Date: 29/11/23
@@ -20,18 +18,32 @@
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/baloncesto","root", "user");
         Statement s = conexion.createStatement();
+        String pattern = "dd-MM-yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
         ResultSet listado = s.executeQuery ("SELECT * FROM entrenamiento");
-        %>
+
+        String fechaFormateada = null;
+    %>
         <table>
         <tr><th>Código</th><th>Tipo</th><th>Ubicacion</th><th>Fecha</th></tr>
     <%
         while (listado.next()) {
+
+            // Formateo de fecha
+            try {
+
+                fechaFormateada = simpleDateFormat.format(listado.getDate("fecha"));
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+
         out.println("<tr><td>");
         out.println(listado.getString("entrenamientoID") + "</td>");
         out.println("<td>" + listado.getString("tipo") + "</td>");
         out.println("<td>" + listado.getString("ubicacion") + "</td>");
-        out.println("<td>" + listado.getString("fecha") + "</td>");
+        out.println("<td>" + fechaFormateada + "</td>");
     %>
         <td>
         <form method="get" action="borraEntrenamiento.jsp">

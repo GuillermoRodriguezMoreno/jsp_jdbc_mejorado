@@ -141,6 +141,8 @@
             } catch (Exception e) { /* Ignored */ }
         }
 
+        response.sendRedirect("index.jsp");
+
     } else {
         out.println("Error de validación!");
         session.setAttribute("error", error);
